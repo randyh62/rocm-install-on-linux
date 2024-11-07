@@ -23,6 +23,10 @@ TensorFlow. For TensorFlow the exact version follows the ``<TensorFlowVersion>.<
       - `PyTorch <https://github.com/pytorch/pytorch/releases/>`_
       - `TensorFlow <https://github.com/tensorflow/tensorflow/releases/>`_
 
+    * - 6.3.x
+      - 1.13, 2.0, 2.1, 2.2, 2.3, 2.4
+      - 2.14.1, 2.15.1, 2.16.1
+  
     * - 6.2.x
       - 1.13, 2.0, 2.1, 2.2, 2.3
       - 2.14.1, 2.15.1, 2.16.1

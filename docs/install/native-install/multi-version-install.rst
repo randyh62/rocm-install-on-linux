@@ -2,6 +2,8 @@
   :description: Install multiple ROCm versions
   :keywords: installation instructions, AMD, ROCm, multiple versions
 
+.. _multi-version_install:
+
 *********************************
 Installing multiple ROCm versions
 *********************************

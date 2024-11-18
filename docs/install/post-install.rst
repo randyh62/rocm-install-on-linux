@@ -83,7 +83,6 @@ After installing ROCm, follow these steps to finalize and validate the installat
 
        dkms status
 
-<<<<<<< HEAD
 4. Export LD_LIBRARY_PATH as needed
 
    .. important::
@@ -95,20 +94,13 @@ After installing ROCm, follow these steps to finalize and validate the installat
       export LD_LIBRARY_PATH=/opt/rocm-6.3.0/lib
 
 5. Verify the ROCm installation.
-=======
-4. Verify the ROCm installation.
->>>>>>> external/develop
 
    .. code-block:: bash
 
        rocminfo
        clinfo
 
-<<<<<<< HEAD
 6. Verify the package installation.
-=======
-5. Verify the package installation.
->>>>>>> external/develop
 
    .. tab-set::
 

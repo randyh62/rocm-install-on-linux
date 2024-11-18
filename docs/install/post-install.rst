@@ -35,14 +35,14 @@ After installing ROCm, follow these steps to finalize and validate the installat
 
          .. code-block:: shell
 
-            update-alternatives --list
+            update-alternatives --list rocm
 
       #. If you have installed multiple ROCm versions, ``update-alternatives`` is automatically configured to use the
          latest version. To switch between installed versions, use this command:
 
          .. code-block:: shell
 
-            update-alternative --config rocm
+            update-alternatives --config rocm
 
    *  ``environment-modules``:
 
@@ -83,6 +83,7 @@ After installing ROCm, follow these steps to finalize and validate the installat
 
        dkms status
 
+<<<<<<< HEAD
 4. Export LD_LIBRARY_PATH as needed
 
    .. important::
@@ -94,13 +95,20 @@ After installing ROCm, follow these steps to finalize and validate the installat
       export LD_LIBRARY_PATH=/opt/rocm-6.3.0/lib
 
 5. Verify the ROCm installation.
+=======
+4. Verify the ROCm installation.
+>>>>>>> external/develop
 
    .. code-block:: bash
 
        rocminfo
        clinfo
 
+<<<<<<< HEAD
 6. Verify the package installation.
+=======
+5. Verify the package installation.
+>>>>>>> external/develop
 
    .. tab-set::
 
@@ -108,16 +116,16 @@ After installing ROCm, follow these steps to finalize and validate the installat
 
            .. code-block:: bash
 
-               sudo apt list --installed
+               apt list --installed
 
        .. tab-item:: RHEL
 
            .. code-block:: bash
 
-               sudo dnf list installed
+               dnf list installed
 
        .. tab-item:: SLES
 
            .. code-block:: bash
 
-               sudo zypper search --installed-only
+               zypper search --installed-only

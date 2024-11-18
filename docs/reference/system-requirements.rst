@@ -1,5 +1,5 @@
 .. meta::
-  :description: Linux GPU and OS support
+  :description: System requirements for AMD ROCm
   :keywords: Linux support, ROCm distributions, system requirements, supported GPUs,  Instinct,
     Radeon PRO, Radeon, AMD, ROCm
 
@@ -9,11 +9,17 @@
 System requirements (Linux)
 **************************************************************************************
 
+.. |br| raw:: html
+
+   <br>
+
 Supported GPUs
 =============================================
 
 The following table shows the supported AMD Instinct™ accelerators, and Radeon™ PRO
 and Radeon GPUs. If a GPU is not listed on this table, it's not officially supported by AMD.
+
+Accelerators and GPUs listed in the following table support compute workloads (no display information or graphics). If you’re using ROCm with AMD Radeon or Radeon Pro GPUs for graphics workloads, see the `Use ROCm on Radeon GPU documentation <https://rocm.docs.amd.com/projects/radeon/en/latest/docs/compatibility.html>`_ to verify compatibility and system requirements.
 
 .. tab-set::
 
@@ -85,8 +91,9 @@ AMD ROCm software supports the following Linux distributions.
     :header: "Operating system", "Kernel", "Support"
     :escape: \
 
+    "Ubuntu 24.04.1", "6.8 [GA]", "✅"
     "Ubuntu 24.04", "6.8 [GA]", "✅"
-    "Ubuntu 22.04.5", "5.15 [GA], 6.8 [HWE]", "✅ [#Ubuntu22045]_"
+    "Ubuntu 22.04.5", "5.15 [GA], 6.8 [HWE]", "✅"
     "Ubuntu 22.04.4", "5.15 [GA], 6.5 [HWE]", "✅"
     "RHEL 9.4", "5.14.0", "✅"
     "RHEL 9.3", "5.14.0", "✅"
@@ -107,12 +114,11 @@ Virtualization support
 ROCm supports virtualization for select GPUs only as shown below.
 
 .. csv-table::
-    :widths: 50, 25, 25, 50
+    :widths: 20, 20, 20, 40
     :header: "Hypervisor", "Version", "GPU", "Validated guest OS (kernel)"
 
-    "VMWare", "ESXI 8", "MI250", "Ubuntu 20.04 (5.15 [HWE])"
-    "VMWare", "ESXI 8", "MI210", "Ubuntu 20.04 (5.15 [HWE]), SLES 15 SP4 (5.14.21)"
-    "VMWare", "ESXI 7", "MI210", "Ubuntu 20.04 (5.15 [HWE]), SLES 15 SP4 (5.14.21)"
+    "VMWare", "ESXi 8.0.3", "MI210", "Ubuntu 22.04.4 (6.8 [HWE]), |br| SLES 15 SP5 (5.14.21), |br| RHEL 9.4 (5.14.0)"
+    "VMWare", "ESXi 7.0.3", "MI210", "Ubuntu 22.04.4 (6.8 [HWE]), |br| RHEL 9.4 (5.14.0)"
 
 CPU support
 =============================================
@@ -125,5 +131,4 @@ ROCm requires CPUs that support PCIe™ atomics. Modern CPUs after the release o
 .. [#mi300x] Operating system support for AMD Instinct MI300X is
    extended to all listed in :ref:`Supported operating systems <supported_distributions>` *except* Ubuntu 22.04.5
    (kernel: 6.8 [HWE]) and Ubuntu 22.04.4 (kernel: 6.5 [HWE]).
-.. [#Ubuntu22045] Preview support for HWE kernel.
 .. [#oracle89] Oracle Linux 8.9 is supported only on AMD Instinct MI300X.

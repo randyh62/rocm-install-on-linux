@@ -455,7 +455,7 @@ int draw_create_config_summary_page(MENU_DATA *pMenuData)
     targetSystemInfoValues[0] = pOfflineConfigs->distroName;
     targetSystemInfoValues[1] = pOfflineConfigs->kernelVersion;
     starty = print_sub_menu_summary_options(pMenuData,pMenuSubWindow,targetSystemInfoOps, "Target Installer", targetSystemInfoValues, COL1_SUMMARY_MENU_OP_STARTX, COLS_SUMMARY_MENU_STARTY, COL2_SUMMARY_MENU_VALUE_STARTX, COL2_SUMMARY_MENU_VALUE_WIDTH);
-
+    
     // Create Configuration
     summaryConfigValues[0] = createMenuInstallTypes[pOfflineConfigs->installerType].installer_input;
     summaryConfigValues[1] = createMenuRepoTypes[pOfflineConfigs->installerRepoType].repo_name;

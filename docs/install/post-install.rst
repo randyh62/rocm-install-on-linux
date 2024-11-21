@@ -115,6 +115,12 @@ After installing ROCm, follow these steps to finalize and validate the installat
            .. code-block:: bash
 
                dnf list installed
+      
+       .. tab-item:: OL
+
+           .. code-block:: bash
+
+               dnf list installed
 
        .. tab-item:: SLES
 

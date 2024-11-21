@@ -60,6 +60,10 @@ installation to avoid conflicts.
 
       .. include:: ./includes/rhel-multi-install.rst
 
+   .. tab-item:: OL
+
+      .. include:: ./includes/ol-multi-install.rst
+
    .. tab-item:: SLES
 
       .. include:: ./includes/sles-multi-install.rst

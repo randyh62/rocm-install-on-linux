@@ -45,6 +45,7 @@ exclude_patterns = [
     'install/native-install/includes/rhel-multi-install.rst',
     'install/native-install/includes/sles-multi-install.rst',
     'install/native-install/includes/ubuntu-multi-install.rst'
+    'install/native-install/includes/ol-multi-install.rst'
 ]
 
 external_toc_path = "./sphinx/_toc.yml"

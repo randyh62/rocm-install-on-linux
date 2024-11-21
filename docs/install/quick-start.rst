@@ -65,6 +65,28 @@ For more in-depth installation instructions, refer to :ref:`detailed-install-ove
                        sudo dnf install amdgpu-dkms rocm
                 {% endfor %}
 
+        .. tab-item:: Oracle Linux
+
+            .. tab-set::
+
+                {% for os_version in config.html_context['ol_version_numbers'] %}
+                {% set os_major, _  = os_version.split('.') %}
+                .. tab-item:: {{ os_version }}
+
+                   .. code-block:: bash
+                       :substitutions:
+
+                       wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ os_major }}.noarch.rpm
+                       sudo rpm -ivh epel-release-latest-{{ os_major }}.noarch.rpm
+                       sudo dnf install dnf-plugin-config-manager
+                       sudo crb enable
+                       sudo dnf install "kernel-uek-devel-$(uname -r)"
+                       sudo usermod -a -G render,video $LOGNAME # Add the current user to the render and video groups
+                       sudo dnf install https://repo.radeon.com/amdgpu-install/|amdgpu_version|/el/{{ os_version }}/amdgpu-install-|amdgpu_install_version|.el{{ os_major }}.noarch.rpm
+                       sudo dnf clean all
+                       sudo dnf install amdgpu-dkms rocm
+                {% endfor %}
+
         .. tab-item:: SUSE Linux Enterprise Server
 
             .. tab-set::

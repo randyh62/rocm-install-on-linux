@@ -25,6 +25,8 @@ subtrees:
                   title: Ubuntu
                 - file: install/native-install/rhel
                   title: RHEL
+                - file: install/native-install/ol
+                  title: OL
                 - file: install/native-install/sles
                   title: SLES
             - file: install/amdgpu-install

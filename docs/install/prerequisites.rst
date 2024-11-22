@@ -82,7 +82,7 @@ your operating system to ensure you're able to download and install packages.
             
         .. code-block:: shell
 
-            SUSEConnect -r <REGCODE>
+            sudo SUSEConnect -r <REGCODE>
 
         More details about `registering for SLES <https://www.suse.com/support/kb/doc/?id=000018564>`_
 
@@ -146,9 +146,9 @@ instructions specific to your distribution to add the necessary repositories.
 
                     .. code-block:: shell
 
-                        SUSEConnect -p sle-module-desktop-applications/{{ os_version }}/x86_64
-                        SUSEConnect -p sle-module-development-tools/{{ os_version }}/x86_64
-                        SUSEConnect -p PackageHub/{{ os_version }}/x86_64
+                        sudo SUSEConnect -p sle-module-desktop-applications/{{ os_version }}/x86_64
+                        sudo SUSEConnect -p sle-module-development-tools/{{ os_version }}/x86_64
+                        sudo SUSEConnect -p PackageHub/{{ os_version }}/x86_64
                         sudo zypper addrepo https://download.opensuse.org/repositories/devel:/languages:/perl/{{ os_version }}/devel:languages:perl.repo
                         sudo zypper addrepo https://download.opensuse.org/repositories/Education/{{ os_version }}/Education.repo
 

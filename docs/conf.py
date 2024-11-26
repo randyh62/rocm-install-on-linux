@@ -35,7 +35,7 @@ all_article_info_author = ""
 # Supported linux version numbers
 ubuntu_version_numbers = [('24.04', 'noble'), ('22.04', 'jammy')]
 rhel_release_version_numbers = ['9', '8']
-rhel_version_numbers = ['9.5', '9.4', '8.10']
+rhel_version_numbers = ['9.5', '9.4', '8.10', '8.9']
 sles_version_numbers = ['15.6', '15.5']
 ol_release_version_numbers = ['8']
 ol_version_numbers = [('8.10')]

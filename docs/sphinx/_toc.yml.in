@@ -65,4 +65,4 @@ subtrees:
     - file: reference/install-faq
       title: Troubleshooting
     - file: reference/user-kernel-space-compat-matrix
-      title: User & Kernel-space support
+      title: User & kernel-space support

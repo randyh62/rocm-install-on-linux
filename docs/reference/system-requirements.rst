@@ -29,7 +29,7 @@ Accelerators and GPUs listed in the following table support compute workloads (n
       :widths: 50, 25, 25, 10
       :header: "Accelerator", "Architecture", "LLVM target", "Support"
 
-      "AMD Instinct MI300X", "CDNA3", "gfx942", "✅ [#mi300x]_"
+      "AMD Instinct MI300X", "CDNA3", "gfx942", "✅"
       "AMD Instinct MI300A", "CDNA3", "gfx942", "✅"
       "AMD Instinct MI250X", "CDNA2", "gfx90a", "✅"
       "AMD Instinct MI250", "CDNA2", "gfx90a", "✅"
@@ -114,8 +114,8 @@ ROCm supports virtualization for select GPUs only as shown below.
     :widths: 20, 20, 20, 40
     :header: "Hypervisor", "Version", "GPU", "Validated guest OS (kernel)"
 
-    "VMWare", "ESXi 8.0.3", "MI210", "Ubuntu 22.04.4 (6.8 [HWE]), |br| SLES 15 SP5 (5.14.21), |br| RHEL 9.4 (5.14.0)"
-    "VMWare", "ESXi 7.0.3", "MI210", "Ubuntu 22.04.4 (6.8 [HWE]), |br| RHEL 9.4 (5.14.0)"
+    "VMWare", "ESXi 8.0.3", "MI210", "Ubuntu 22.04.5 (6.8 [HWE]), |br| SLES 15 SP5 (5.14.21), |br| RHEL 9.4 (5.14.0)"
+    "VMWare", "ESXi 7.0.3", "MI210", "Ubuntu 22.04.5 (6.8 [HWE]), |br| RHEL 9.4 (5.14.0)"
 
 CPU support
 =============================================
@@ -125,7 +125,4 @@ ROCm requires CPUs that support PCIe™ atomics. Modern CPUs after the release o
 
 .. rubric:: Footnotes
 
-.. [#mi300x] Operating system support for AMD Instinct MI300X is
-   extended to all listed in :ref:`Supported operating systems <supported_distributions>` *except* Ubuntu 22.04.5
-   (kernel: 6.8 [HWE]) and Ubuntu 22.04.4 (kernel: 6.5 [HWE]).
 .. [#oracle810] Oracle Linux 8.10 is supported only on AMD Instinct MI300X.

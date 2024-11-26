@@ -56,8 +56,6 @@ subtrees:
 
 - caption: Reference
   entries:
-    - file: reference/docker-image-support-matrix
-      title: Docker image support
     - file: reference/package-manager-integration
       title: Package manager integration
     - file: reference/system-requirements

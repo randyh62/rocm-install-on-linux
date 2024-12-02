@@ -213,9 +213,23 @@ To install for the currently active kernel run the command corresponding to your
     .. tab-item:: Red Hat Enterprise Linux
         :sync: rhel-tab
 
-        .. code-block:: shell
+        .. datatemplate:nodata::
 
-            sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)"
+            .. tab-set::
+
+              {% for os_release in config.html_context['rhel_release_version_numbers']  %}
+
+                  .. tab-item:: RHEL {{ os_release }}
+
+                    .. code-block:: shell
+
+                        {% if os_release == '9' %}
+                        sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)" "kernel-devel-matched-$(uname -r)"
+                        {% else %}
+                        sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)"
+                        {% endif %}
+
+              {% endfor %}
 
     .. tab-item:: Oracle Linux
         :sync: ol-tab

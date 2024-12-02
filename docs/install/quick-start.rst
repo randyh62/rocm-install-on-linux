@@ -58,7 +58,11 @@ For more in-depth installation instructions, refer to :ref:`detailed-install-ove
                        sudo rpm -ivh epel-release-latest-{{ os_major }}.noarch.rpm
                        sudo dnf install dnf-plugin-config-manager
                        sudo crb enable
+                       {% if os_major == '9' -%}
+                       sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)" "kernel-devel-matched-$(uname -r)"
+                       {%- else -%}
                        sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)"
+                       {%- endif %}
                        sudo usermod -a -G render,video $LOGNAME # Add the current user to the render and video groups
                        sudo dnf install https://repo.radeon.com/amdgpu-install/|amdgpu_version|/rhel/{{ os_version }}/amdgpu-install-|amdgpu_install_version|.el{{ os_major }}.noarch.rpm
                        sudo dnf clean all

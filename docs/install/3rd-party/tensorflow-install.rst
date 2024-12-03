@@ -34,6 +34,8 @@ To install TensorFlow for ROCm, you have the following options:
 
     * - ROCm version
       - TensorFlow version
+    * - 6.3.x
+      - 2.15.1, 2.16.2, 2.17.0
     * - 6.2.x
       - 2.14.1, 2.15.1, 2.16.1
     * - 6.1.x

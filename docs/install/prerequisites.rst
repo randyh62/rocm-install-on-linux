@@ -51,7 +51,7 @@ Before installing ROCm, complete the following prerequisites.
 Register your Enterprise Linux
 ==========================================================
 
-If you're using Red Hat Enterprise Linux (RHEL) or SUSE Linux Enterprise Server (SLES), register
+If you're using Red Hat Enterprise Linux (RHEL), Oracle Linux (OL) or SUSE Linux Enterprise Server (SLES), register
 your operating system to ensure you're able to download and install packages.
 
 .. tab-set::
@@ -66,13 +66,18 @@ your operating system to ensure you're able to download and install packages.
 
         Typically you can register by following the step-by-step user interface.
         If you need to register by command line, use the following commands:
-
+        
         .. code-block:: shell
 
             subscription-manager register --username <username> --password <password>
             subscription-manager attach --auto
 
         More details about `registering for RHEL <https://access.redhat.com/solutions/253273>`_
+
+  .. tab-item:: Oracle Linux
+        :sync: ol-tab
+
+        There is no registration required for Oracle Linux.
 
   .. tab-item:: SUSE Linux Enterprise Server
         :sync: sle-tab
@@ -130,10 +135,39 @@ instructions specific to your distribution to add the necessary repositories.
                sudo dnf install dnf-plugin-config-manager
                sudo crb enable
 
+    .. tab-item:: Oracle Linux
+        :sync: ol-tab
+
+        1. Add the EPEL repository.
+
+           .. datatemplate:nodata::
+
+               .. tab-set::
+
+                  {% for os_release in config.html_context['ol_release_version_numbers']  %}
+
+                      .. tab-item:: OL {{ os_release }}
+
+                        .. code-block:: shell
+
+                            wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ os_release }}.noarch.rpm
+                            sudo rpm -ivh epel-release-latest-{{ os_release }}.noarch.rpm
+
+                  {% endfor %}
+
+        2. Enable the CodeReady Linux Builder (CRB) repository.
+
+           In order to enable CRB, you may need to install ``dnf-plugin-config-manager`` first.
+
+           .. code-block:: shell
+
+               sudo dnf install dnf-plugin-config-manager
+               sudo crb enable
+
     .. tab-item:: SUSE Linux Enterprise Server
         :sync: sle-tab
 
-        Add a few modules with SUSEConnect, along with the Perl language and Education repositories.
+        Add a few modules with SUSEConnect, along with the Perl language, Education and science repositories.
 
         .. datatemplate:nodata::
 
@@ -151,6 +185,7 @@ instructions specific to your distribution to add the necessary repositories.
                         sudo SUSEConnect -p PackageHub/{{ os_version }}/x86_64
                         sudo zypper addrepo https://download.opensuse.org/repositories/devel:/languages:/perl/{{ os_version }}/devel:languages:perl.repo
                         sudo zypper addrepo https://download.opensuse.org/repositories/Education/{{ os_version }}/Education.repo
+                        sudo zypper addrepo https://download.opensuse.org/repositories/science/SLE_15_SP5/science.repo # Once SLE_15_SP6 is created, change the static folder "SLE_15_SP5" to dynamic
 
                 {% endfor %}
 
@@ -178,10 +213,30 @@ To install for the currently active kernel run the command corresponding to your
     .. tab-item:: Red Hat Enterprise Linux
         :sync: rhel-tab
 
+        .. datatemplate:nodata::
+
+            .. tab-set::
+
+              {% for os_release in config.html_context['rhel_release_version_numbers']  %}
+
+                  .. tab-item:: RHEL {{ os_release }}
+
+                    .. code-block:: shell
+
+                        {% if os_release == '9' %}
+                        sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)" "kernel-devel-matched-$(uname -r)"
+                        {% else %}
+                        sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)"
+                        {% endif %}
+
+              {% endfor %}
+
+    .. tab-item:: Oracle Linux
+        :sync: ol-tab
+
         .. code-block:: shell
 
-            sudo dnf install "kernel-headers-$(uname -r)" "kernel-devel-$(uname -r)"
-
+            sudo dnf install "kernel-uek-devel-$(uname -r)"
 
     .. tab-item:: SUSE Linux Enterprise Server
         :sync: sle-tab

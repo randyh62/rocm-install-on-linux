@@ -22,6 +22,14 @@
 # THE SOFTWARE.
 # #############################################################################
 
+# Logs
+CREATE_INSTALLER_LOGS=/var/log/offline_creator
+CREATE_INSTALLER_CURRENT_LOG="$CREATE_INSTALLER_LOGS/create_$(date +%s).log"
+
+SUDO=$([[ $(id -u) -ne 0 ]] && echo "sudo" ||:)
+$SUDO mkdir -p /var/log/offline_creator
+{
+
 # Creates a install .run using AMD repos as a source and adds dependent packages
 WGET_RETRY_COUNT=5
 
@@ -356,6 +364,29 @@ cleanup_create() {
     echo Cleaning up installation...Complete
 }
 
+cleanup_pkg_cache() {
+    echo ++++++++++++++++++++++++++++++++
+    echo Cleaning up package cache...
+    
+    if [ -f "./$CREATE_INSTALLER_PACKAGE_DIR/pkgcache.bin" ]; then
+        $SUDO rm "./$CREATE_INSTALLER_PACKAGE_DIR/pkgcache.bin"
+    fi
+            
+    if [ -f "./$CREATE_INSTALLER_PACKAGE_DIR/lock" ]; then
+        $SUDO rm "./$CREATE_INSTALLER_PACKAGE_DIR/lock"
+    fi
+            
+    if [ -f "./$CREATE_INSTALLER_PACKAGE_DIR/srcpkgcache.bin" ]; then
+        $SUDO rm "./$CREATE_INSTALLER_PACKAGE_DIR/srcpkgcache.bin"
+    fi
+            
+    if [ -d "./$CREATE_INSTALLER_PACKAGE_DIR/partial" ]; then
+        $SUDO rm -R "./$CREATE_INSTALLER_PACKAGE_DIR/partial"
+    fi
+    
+    echo Cleaning up package cache...Complete.
+}
+
 install_tools() {
     echo =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     
@@ -550,14 +581,7 @@ create_install_repo() {
     debugCreate create_install_repo
     
     # Clean up
-    echo Removing files from package directory...
-    
-    $SUDO rm ./$CREATE_INSTALLER_PACKAGE_DIR/pkgcache.bin
-    $SUDO rm ./$CREATE_INSTALLER_PACKAGE_DIR/lock
-    $SUDO rm ./$CREATE_INSTALLER_PACKAGE_DIR/srcpkgcache.bin
-    $SUDO rm -R ./$CREATE_INSTALLER_PACKAGE_DIR/partial
-
-    echo Removing files from package directory...Complete
+    cleanup_pkg_cache
 
     echo =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     echo Creating Packages list...
@@ -945,3 +969,6 @@ echo -e "\e[32m=================================================================
 echo -e "\e[32mLocation: $INSTALLER_INFO : $CREATE_BUILD_PKG_COUNT Packages\e[0m"
 echo -e "\e[32m========================================================================================\e[0m"
 
+} 2>&1 | $SUDO tee $CREATE_INSTALLER_CURRENT_LOG
+
+echo "Create install log stored in: $CREATE_INSTALLER_CURRENT_LOG"

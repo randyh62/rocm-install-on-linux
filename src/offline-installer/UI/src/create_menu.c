@@ -94,7 +94,7 @@ INSTALL_REPO_PROP createMenuRepoTypes[eREPO_TYPE_MAX] = {
 char *createMenuHelpOps[] = {
     "Installer Input",
     "Repo Type",
-    "Dependency       Download Type",
+    "Dependency Download  Type",
     "Installer Name",
     "Installer Path",
     "",

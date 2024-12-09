@@ -161,6 +161,7 @@ char *rocmVersionsNameIndexMapping[] = {
     "6.2.1",
     "6.2.2",
     "6.2.4",
+    "6.3",
     (char*)NULL,
 };
 
@@ -178,6 +179,7 @@ char *rocmVersionsDescIndexMapping[] = {
     "Install ROCm 6.2.1",
     "Install ROCm 6.2.2",
     "Install ROCm 6.2.4",
+    "Install ROCm 6.3",
     (char*)NULL,
 };
 
@@ -192,6 +194,7 @@ char *distroOSVersionsIndexMapping[] = {
     "rhel9.4",
     "sles15.5",
     "sles15.6",
+    "ol8.10",
     (char*)NULL,
 };
 
@@ -199,17 +202,17 @@ char *distroOSVersionsIndexMapping[] = {
 // Each column corresponds to a specific rocm version specified in array rocmVersionsDescIndexMapping
 // First column maps to 5.7.3, second maps to 6.0,..., third to 6.0.1 and so on...
 int rocmVersionsMatrix[ROCM_VERS_ROWS][ROCM_VERS_COLS] = {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1}, // Ubuntu 20.04 
-    {1,1,1,1,1,1,1,1,1,1,1,1,1}, // Ubuntu 22.04 
-    {0,0,0,0,0,0,0,0,0,1,1,1,1}, // Ubuntu 24.04 
-    {0,1,1,1,1,1,1,1,1,1,1,1,1}, // rhel 8.9
-    {0,0,0,0,0,0,0,0,0,1,1,1,1}, // rhel 8.10
-    {1,1,1,1,1,1,1,1,1,1,1,1,1}, // rhel 9.2
-    {0,1,1,1,1,1,1,1,1,1,1,1,1}, // rhel 9.3    
-    {0,0,0,0,0,0,0,0,0,1,1,1,1}, // rhel 9.4
-    {0,0,0,0,0,0,0,0,0,1,1,1,1}, // rhel 9.4
-    {1,1,1,1,1,1,1,1,1,1,1,1,1}, // sles 15.5
-    {0,0,0,0,0,0,0,0,0,1,1,1,1}, // sles 15.6 
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // Ubuntu 20.04 
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // Ubuntu 22.04 
+    {0,0,0,0,0,0,0,0,0,1,1,1,1,1}, // Ubuntu 24.04 
+    {0,1,1,1,1,1,1,1,1,1,1,1,1,0}, // rhel 8.9
+    {0,0,0,0,0,0,0,0,0,1,1,1,1,1}, // rhel 8.10
+    {1,1,1,1,1,1,1,1,1,0,0,0,0,0}, // rhel 9.2
+    {0,1,1,1,1,1,1,1,1,1,1,1,1,0}, // rhel 9.3    
+    {0,0,0,0,0,0,0,0,0,1,1,1,1,1}, // rhel 9.4
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // sles 15.5
+    {0,0,0,0,0,0,0,0,0,1,1,1,1,1}, // sles 15.6
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,1}, // oracle linux 8.10 
 };
 
 char **rocmVersions = NULL;
@@ -285,7 +288,7 @@ void update_rocm_usecase_config();
 bool is_rocm_version_empty(MENU_DATA *pMenuData);
 
 // enable/disable rocm versions depending on OS distro
-int getRocmVersionOpsArray(MENU_DATA *pMenuData, char *rocmMenuVersionOps[], char *rocmMenuVersionDesc[], OFFLINE_INSTALL_CONFIG *pConfig);
+int getRocmVersionOpsArray(char *rocmMenuVersionOps[], char *rocmMenuVersionDesc[], OFFLINE_INSTALL_CONFIG *pConfig);
 
 MENU_DATA menuROCMUsecase = {0};
 MENU_DATA menuROCMVersion = {0};
@@ -681,7 +684,7 @@ void create_rocm_menu_version_window(MENU_DATA *pMenuData, WINDOW *pMenuWindow, 
     rocmVersions = calloc(ROCM_VERS_MENU_MAX_SIZE, sizeof(char*));
     rocmVersionsDesc = calloc(ROCM_VERS_MENU_MAX_SIZE, sizeof(char*));
     
-    int numItems = getRocmVersionOpsArray(pMenuData, rocmVersions, rocmVersionsDesc, pConfig) + 1;
+    int numItems = getRocmVersionOpsArray(rocmVersions, rocmVersionsDesc, pConfig) + 1;
 
     rocmMenuVersionProps = (MENU_PROP) {
         .pMenuTitle = "ROCm Version Configuration",
@@ -960,7 +963,8 @@ void create_rocm_usecases_help_menu_window(MENU_DATA *pMenuData, WINDOW *pMenuWi
 
 int getDistroOSVerionIndex(char *distroOSVersion)
 {
-    for (int i = 0; (int) ARRAY_SIZE(distroOSVersionsIndexMapping); i++)
+    int size = (int) ARRAY_SIZE(distroOSVersionsIndexMapping) - 1;
+    for (int i = 0; i < size; i++)
     {
         if (strcmp(distroOSVersion, distroOSVersionsIndexMapping[i]) == 0)
         {
@@ -971,7 +975,7 @@ int getDistroOSVerionIndex(char *distroOSVersion)
     return -1;
 }
 
-int getRocmVersionOpsArray(MENU_DATA *pMenuData, char *rocmMenuVersionOps[], char *rocmMenuVersionDesc[], OFFLINE_INSTALL_CONFIG *pConfig)
+int getRocmVersionOpsArray(char *rocmMenuVersionOps[], char *rocmMenuVersionDesc[], OFFLINE_INSTALL_CONFIG *pConfig)
 {
     int index = 0;
     char distroOSVersion[DEFAULT_CHAR_SIZE];
@@ -983,7 +987,7 @@ int getRocmVersionOpsArray(MENU_DATA *pMenuData, char *rocmMenuVersionOps[], cha
     // the array distroOSVersionsIndexMapping
     if (rocmVersionIndex == -1)
     {
-        print_menu_err_msg(pMenuData, "Unable to get rocm version index for current distro: %s", distroOSVersion);
+        printf("Unable to get rocm version index for current distro: %s\n", distroOSVersion);
         return -1;
     }
     

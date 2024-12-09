@@ -91,10 +91,12 @@ char *summaryDriverValues[] = {
 char *summaryExtraOps[] = {
     "rocminfo",
     "rocm-smi",
+    "rocm-validation-suite",
     (char *)NULL
 };
 
 char *summaryExtraValues[] = {
+    "",
     "",
     "",
     (char *)NULL
@@ -455,7 +457,7 @@ int draw_create_config_summary_page(MENU_DATA *pMenuData)
     targetSystemInfoValues[0] = pOfflineConfigs->distroName;
     targetSystemInfoValues[1] = pOfflineConfigs->kernelVersion;
     starty = print_sub_menu_summary_options(pMenuData,pMenuSubWindow,targetSystemInfoOps, "Target Installer", targetSystemInfoValues, COL1_SUMMARY_MENU_OP_STARTX, COLS_SUMMARY_MENU_STARTY, COL2_SUMMARY_MENU_VALUE_STARTX, COL2_SUMMARY_MENU_VALUE_WIDTH);
-    
+
     // Create Configuration
     summaryConfigValues[0] = createMenuInstallTypes[pOfflineConfigs->installerType].installer_input;
     summaryConfigValues[1] = createMenuRepoTypes[pOfflineConfigs->installerRepoType].repo_name;
@@ -545,6 +547,7 @@ void draw_rocm_and_extras_summary_page(MENU_DATA *pMenuData)
     // Extra
     summaryExtraValues[0] = bool_to_yes_no(pOfflineConfigs->extras_config.rocminfo_install);
     summaryExtraValues[1] = bool_to_yes_no(pOfflineConfigs->extras_config.rocmsmi_install);
+    summaryExtraValues[2] = bool_to_yes_no(pOfflineConfigs->extras_config.rocm_validation_suite_install);
     
     print_sub_menu_summary_options(pMenuData, pMenuSubWindow,summaryExtraOps, "Extra", summaryExtraValues, COL1_SUMMARY_MENU_OP_STARTX, starty, COL2_SUMMARY_MENU_VALUE_STARTX, COL2_SUMMARY_MENU_VALUE_WIDTH);
     draw_page_number(pMenuData);

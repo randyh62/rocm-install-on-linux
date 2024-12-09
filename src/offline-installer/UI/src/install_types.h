@@ -31,7 +31,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUILD_INTERNAL  0
 
 #ifndef OFFLINE_VERSION
 #define OFFLINE_VERSION "custom"

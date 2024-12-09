@@ -103,6 +103,7 @@ typedef struct _EXTRAS_MENU_CONFIG
 {
     bool rocminfo_install;
     bool rocmsmi_install;
+    bool rocm_validation_suite_install;
 }EXTRAS_MENU_CONFIG;
 
 
